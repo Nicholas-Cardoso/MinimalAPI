@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MinimalAPIs.Data;
 using MinimalAPIs.Model;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,27 @@ app.MapGet("/book/{id}", async (BookDbContext context, int id) =>
         return Results.NotFound("Sorry, this book doesn´t exist.");
 
     return Results.Ok(findBook);
+});
+
+app.MapGet("/book/filter-books", async (BookDbContext context, string title, string order) =>
+{
+    var findBookName = await context.Books.Where(b => b.Title.Contains(title)).ToListAsync();
+
+    if (findBookName.Count == 0)
+        return Results.NotFound("Sorry, the book title couldn't be found.");
+
+    if (order == "ASC")
+    {
+        var bookSortById = findBookName.OrderBy(b => b.Id);
+        return Results.Ok(bookSortById);
+    }
+    else if (order == "DESC")
+    {
+        var bookSortById = findBookName.OrderByDescending(b => b.Id);
+        return Results.Ok(bookSortById);
+    }
+
+    return Results.Ok(findBookName);
 });
 
 app.MapPost("/createBook", async (BookDbContext context, [FromBody] Book book) =>
