@@ -19,8 +19,8 @@ Efficient and Clean Code: The implementation emphasizes clean and efficient code
 
 Explore the Minimal API endpoints for CRUD operations on the book collection.
 Feel free to contribute, provide feedback, or customize the project to suit your specific requirements.
-Happy coding!
 
+Happy coding!
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 **Descrição do Repositório:**
